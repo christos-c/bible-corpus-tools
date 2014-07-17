@@ -36,7 +36,9 @@ public class BibleCorpusXMLReader {
                     for (Element verse:verses){
                         String verseIdText = verse.getAttributeValue("id");
                         String verseText = verse.getText().trim();
-                        System.out.println(verseIdText + ":\t" + verseText);
+                        // If you need to output the verse numbers uncomment the following
+                        //System.out.print(verseIdText + ":\t");
+                        System.out.println(verseText);
                     }
                 }
             }
