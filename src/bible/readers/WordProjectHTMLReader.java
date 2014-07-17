@@ -1,8 +1,8 @@
-package bible;
+package bible.readers;
 
 import bible.BibleVariables;
-import bible.Reader;
 import bible.XMLWriter;
+import bible.readers.Reader;
 
 import java.io.IOException;
 import java.net.URL;

@@ -1,5 +1,7 @@
-package bible;
+package bible.readers;
 
+
+import bible.XMLWriter;
 
 public interface Reader {
 

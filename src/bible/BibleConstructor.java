@@ -1,5 +1,9 @@
 package bible;
 
+import bible.readers.BibleGatewayHTMLReader;
+import bible.readers.GoHTMLReader;
+import bible.readers.Reader;
+
 public class BibleConstructor {
     /** The (canonical) name of the language */
     private String lang = "Serbian";
@@ -17,20 +21,20 @@ public class BibleConstructor {
      * The raw HTML/TXT reader interface. Needs to be instantiated by a class for a specific distributorName.
      * Examples include:
      * <br/>
-     * {@link GoHTMLReader}<br/>
-     * {@link BibleGatewayReader}<br/>
-     * {@link WordProjectHTMLReader}<br/>
+     * {@link bible.readers.GoHTMLReader}<br/>
+     * {@link bible.readers.BibleGatewayHTMLReader}<br/>
+     * {@link bible.readers.WordProjectHTMLReader}<br/>
      */
     private Reader reader;
 
-    /** The XML writer class. Used as an argument during {@link bible.Reader}.readFiles() */
+    /** The XML writer class. Used as an argument during {@link bible.readers.Reader}.readFiles() */
     private XMLWriter writer;
 
 
     public BibleConstructor() {
         reader = new GoHTMLReader("");
         // Other constructors:
-        //reader = new BibleGatewayReader();
+        //reader = new BibleGatewayHTMLReader();
         //reader = new WordProjectHTMLReader("sr");
         String[] argList = {langCodeISO, lang, reader.getEncoding(), distributorName, distributorURL};
         writer = new XMLWriter(argList);

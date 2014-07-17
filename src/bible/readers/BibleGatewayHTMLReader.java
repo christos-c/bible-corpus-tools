@@ -1,4 +1,4 @@
-package bible;
+package bible.readers;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.Scanner;
 
 import bible.BibleVariables;
-import bible.Reader;
 import bible.XMLWriter;
+import bible.readers.Reader;
 
 import utils.FileUtils;
 

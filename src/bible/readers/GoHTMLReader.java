@@ -1,4 +1,4 @@
-package bible;
+package bible.readers;
 
 import java.io.IOException;
 import java.net.URL;
@@ -6,8 +6,8 @@ import java.net.URLConnection;
 import java.util.Scanner;
 
 import bible.BibleVariables;
-import bible.Reader;
 import bible.XMLWriter;
+import bible.readers.Reader;
 
 public class GoHTMLReader implements Reader {
 	
