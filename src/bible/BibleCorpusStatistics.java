@@ -6,6 +6,11 @@ import utils.Pair;
 import java.io.*;
 import java.util.*;
 
+/**
+ * A collection of corpus statistics for each translation.
+ *
+ * @author Christos Christodoulopoulos
+ */
 public class BibleCorpusStatistics {
 
     /** This is used for calculating the STTR. It is based on the size of the smallest corpus (Gaelic) */

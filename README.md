@@ -39,6 +39,15 @@ and coverage of the top-N words.
 java -cp lib/*:bin bible.BibleCorpusStatistics TXT_Bibles/English.txt
 ```
 
+##### Checking for missing verses
+`MissingVerses.java` contains methods for finding (and counting) missing verses across translations. To check whether
+a particular verse is missing use the following command:
+```
+java -cp lib/*:bin bible.MissingVerses XML_Bibles XXX.y.z [skip]
+```
+where `XXX.y.z` is the verse in question with format XXX=book-name (see `BibleVariables.java` for the 3-letter codes), 
+y=chapter and z=verse numbers. `skip` is an optional parameter indicating that we wish to skip PART bibles.
+
 #### Creating a verse-aligned version of the corpus
 *NB: The following code was written to align only full translations. Versions with NT text only, or PARTS will be left 
 out. Please refer to the code if you want to include these texts.*

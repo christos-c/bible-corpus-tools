@@ -1,3 +1,4 @@
 *.class
 .idea/
 bible-corpus-tools.iml
+data_bible
