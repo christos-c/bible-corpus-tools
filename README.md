@@ -52,9 +52,9 @@ y=chapter and z=verse numbers. `skip` is an optional parameter indicating that w
 *NB: The following code was written to align only full translations. Versions with NT text only, or PARTS will be left 
 out. Please refer to the code if you want to include these texts.*
 
-1. Create a multilingual version of each book (since some languages might be missing whole books)
+1. Create a multilingual version of each book (since some languages might be missing whole books). *NB: This process requires at least 3GB of memory.*
 ```
-java -cp lib/*:bin bible.CreateMLBooks XML_Bibles
+java -Xmx3g -cp lib/*:bin bible.CreateMLBooks XML_Bibles
 ```
 
 2. Run the verse-aligning tool that will create a txt file for each language (each line of the txt corresponds to one 
