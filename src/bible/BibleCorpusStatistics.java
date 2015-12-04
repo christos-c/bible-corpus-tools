@@ -14,7 +14,7 @@ import java.util.*;
 public class BibleCorpusStatistics {
 
     /** This is used for calculating the STTR. It is based on the size of the smallest corpus (Gaelic) */
-    private static int MIN_WORD_COUNT = 678;
+    private static final int MIN_WORD_COUNT = 678;
 
     private static String language;
 
@@ -37,7 +37,7 @@ public class BibleCorpusStatistics {
         List<Integer> verseLenList = new ArrayList<Integer>();
         while ((line = in.readLine()) != null) {
             // XXX Naive tokenisation
-            String[] split = line.split("\\.|,|:|;|\\?|\\s|。|、");
+            String[] split = line.split("\\.|,|:|;|\\?|\\s|\u3002|\u3001");
             verseLenList.add(split.length);
             for (String word : split) {
                 if (!word.isEmpty()) {

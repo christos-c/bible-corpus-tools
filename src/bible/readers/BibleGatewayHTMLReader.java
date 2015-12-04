@@ -95,7 +95,7 @@ public class BibleGatewayHTMLReader implements Reader{
                 content = scanner.next();
                 String lines[] = content.split(System.getProperty("line.separator"));
                 for (String line : lines) {
-                    if (line.contains("class=\"text")) {
+                    if (line.contains("class=\"text") && line.contains("<span id=")) {
                         line = line.substring(line.indexOf("<span id="));
                         String[] verses = line.split("<span id=");
                         // Ignore the first split
