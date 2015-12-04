@@ -1,7 +1,9 @@
 bible-corpus-tools
 ==================
 
-A collection of tools for reading/processing the multilingual Bible corpus
+A collection of tools for reading/processing the multilingual Bible corpus.
+
+See also Stephen Mayhew's [Data Preparer for Giza++](https://gist.github.com/mayhewsw/944907b968ead28f8e67) 
 
 #### Compiling the code
 To compile the code you'll need Java 1.5 or later. If not present, make a `bin` folder. From the command line run:
