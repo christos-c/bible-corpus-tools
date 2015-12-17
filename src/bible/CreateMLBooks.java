@@ -1,34 +1,33 @@
 package bible;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.zip.GZIPInputStream;
-import java.util.zip.GZIPOutputStream;
-
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.XMLOutputter;
+import utils.StringUtils;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Creates a multilingual version of every Bible book (in XML). This XML file will contain empty verses for languages
  * where those verses are missing. To create a truly aligned corpus, see {@link CreateVerseAlignedBooks}.
  * <br/>
- * Requires the directory of the (gzipped) xml files
+ * Requires the directory of the xml files
  * <br/>
  * <b>NB</b>: Only words for full translations (NT and PART languages are excluded)
  *
  * @author Christos Christodoulopoulos
  */
 public class CreateMLBooks {
-    /** A list that contains all the documents in the ML corpus  */
-	private static List<Document> langDocs;
+    /** A map that contains all the documents in the ML corpus with their corresponding file name */
+	private static Map<String, Document> langDocs;
 	private Element newBook, newVerse;
 
-    /** The directory containing the (gzipped) XML Bible files */
+    /** The directory containing the XML Bible files */
     private static File dir;
 
     /**
@@ -38,14 +37,14 @@ public class CreateMLBooks {
 	@SuppressWarnings("unchecked")
 	public CreateMLBooks() {
         List<Element> books, chapters, verses;
-		File baseFile = new File(dir+"/"+"Greek.xml.gz");
+		File baseFile = new File(dir+"/"+"Greek.xml");
 		SAXBuilder builder = new SAXBuilder();
 		Document doc;
 		int langNo, bookNo;
 		boolean allLangs;
 		try {
 			bookNo=0;
-			doc = builder.build(new GZIPInputStream(new FileInputStream(baseFile)));
+			doc = builder.build(new FileInputStream(baseFile));
 			Element root = doc.getRootElement().getChild("text").getChild("body");
 			books = root.getChildren();
 			for (Element book:books){
@@ -78,9 +77,11 @@ public class CreateMLBooks {
 		String bookID, chapterID, langID, verseText;
 		String[] vSplit;
 		int completeLang = langDocs.size();
-		for (Document curDoc:langDocs){
-			langID = curDoc.getRootElement().getChild("cesHeader").
-			getChild("profileDesc").getChild("langUsage").getChild("language").getText().trim();
+		for (String langFile : langDocs.keySet()){
+			Document curDoc = langDocs.get(langFile);
+			// Use the name of the file as an identifier for the language
+			// (avoids problems with multiple translations, tokenised versions, etc)
+			langID = langFile;
 			vSplit = verseID.split("\\.");
 			bookID = vSplit[0]+"."+vSplit[1];
 			chapterID = bookID+"."+vSplit[2];
@@ -119,8 +120,7 @@ public class CreateMLBooks {
         newRoot.addContent(newBook);
         Document outDoc = new Document(newRoot);
         try {
-            GZIPOutputStream fos = new GZIPOutputStream(new FileOutputStream(dir + "/MLBooks/" + bookNum
-                    + "-"+bookID+".xml.gz"));
+            OutputStream fos = new FileOutputStream(dir + "/MLBooks/" + bookNum + "-" + bookID + ".xml");
             new XMLOutputter().output(outDoc, fos);
             fos.close();
         } catch (Exception e) {e.printStackTrace();}
@@ -139,21 +139,25 @@ public class CreateMLBooks {
             System.exit(-1);
         }
         dir = new File(args[0]);
-		langDocs = new ArrayList<Document>();
-		String[] files = dir.list();
+		langDocs = new HashMap<String, Document>();
+		File[] files = dir.listFiles(new FileFilter() {
+			@Override
+			public boolean accept(File pathname) {
+				//Ignore part bibles for now
+				String filename = pathname.getName();
+				return !(filename.contains("-NT") || filename.contains("-PART")) && filename.endsWith(".xml");
+			}
+		});
 		Document tempDoc;
-		File tempFile;
 		SAXBuilder builder = new SAXBuilder();
 		int numFiles = files.length;
+		StringUtils stringUtils = new StringUtils();
 		System.out.print("Language 0/"+numFiles+" ");
 		for (int i=0; i<numFiles; i++){
 			System.out.print(delete((i-1)+"/"+numFiles)+i+"/"+numFiles);
-			//Ignore part bibles for now
-			if (files[i].contains("-NT") || files[i].contains("-PART")) continue;
-			tempFile = new File(dir+"/"+files[i]);
 			try {
-				tempDoc = builder.build(new GZIPInputStream(new FileInputStream(tempFile)));
-				langDocs.add(tempDoc);
+				tempDoc = builder.build(new FileInputStream(files[i]));
+				langDocs.put(stringUtils.stripExt(files[i].getName()), tempDoc);
 			} 
 			catch (Exception e) {e.printStackTrace();}
 		}
@@ -161,7 +165,7 @@ public class CreateMLBooks {
 		System.out.println("Loaded "+langDocs.size()+", skipped "+(files.length-langDocs.size())+" files");
 
         //Create the output directory (MLBooks)
-        new File(dir + "/MLBooks").mkdir();
+        new File(dir + File.separator + "MLBooks").mkdir();
         new CreateMLBooks();
     }
 }

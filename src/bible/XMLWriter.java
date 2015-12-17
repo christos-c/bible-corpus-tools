@@ -1,13 +1,9 @@
 package bible;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.zip.GZIPOutputStream;
-
 import org.apache.ecs.xml.XML;
 import org.apache.ecs.xml.XMLDocument;
+
+import java.io.*;
 
 public class XMLWriter {
 
@@ -233,7 +229,7 @@ public class XMLWriter {
 		//Write the final file (gzipped)
 		document.addElement(cesDoc);
 		try {
-			GZIPOutputStream fos =  new GZIPOutputStream(new FileOutputStream(langName+".xml.gz"));
+			OutputStream fos =  new FileOutputStream(langName+".xml.gz");
 			document.output(fos);
             fos.close();
 		} 

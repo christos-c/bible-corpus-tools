@@ -1,4 +1,5 @@
 *.class
 .idea/
 bible-corpus-tools.iml
+/bin
 data_bible

@@ -2,7 +2,6 @@ package bible;
 
 import java.io.*;
 import java.util.*;
-import java.util.zip.GZIPInputStream;
 
 import org.jdom.Document;
 import org.jdom.Element;
@@ -45,10 +44,11 @@ public class CreateVerseAlignedBooks {
         });
 
         for (String file1 : files) {
-            BOOK = file1.substring(0, file1.indexOf(".xml.gz"));
-            if (!new File(dir + "aligned/" + BOOK).exists()) new File(dir + "aligned/" + BOOK).mkdir();
+            BOOK = file1.substring(0, file1.indexOf(".xml"));
+			String pathname = dir + "aligned" + File.separator + BOOK;
+			if (!new File(pathname).exists()) new File(pathname).mkdir();
             else {
-                for (File file : new File(dir + "aligned/" + BOOK).listFiles()) file.delete();
+                for (File file : new File(pathname).listFiles()) file.delete();
             }
             makeAlign();
         }
@@ -61,7 +61,7 @@ public class CreateVerseAlignedBooks {
 		List<Element> chapters;
 		try {
 			//Create the file list
-			tempDoc = builder.build(new GZIPInputStream(new FileInputStream(new File(dir+"MLBooks/"+BOOK+".xml.gz"))));
+			tempDoc = builder.build(new FileInputStream(new File(dir+"MLBooks/"+BOOK+".xml")));
 			//Load the verses
 			chapters = tempDoc.getRootElement().getChild("book").getChildren();
 			for (Element c:chapters){
@@ -152,9 +152,9 @@ public class CreateVerseAlignedBooks {
             System.err.println("Please enter the directory that contains the Bible XMLs and the MLBook folder.");
             System.exit(-1);
         }
-        dir = args[0]+"/";
+        dir = args[0]+File.separator;
         //Create the directory to store the aligned files
-        new File(dir + "/aligned").mkdir();
+        new File(dir + File.separator + "aligned").mkdir();
         new CreateVerseAlignedBooks();
 	}
 }

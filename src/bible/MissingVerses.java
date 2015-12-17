@@ -9,7 +9,6 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.zip.GZIPInputStream;
 
 /**
  * A collection of methods for finding and counting missing verses across translations.
@@ -17,8 +16,8 @@ import java.util.zip.GZIPInputStream;
 public class MissingVerses {
     private String baseDir;
 
-    /** The base Bible text to use as reference. (Assume the file is gzipped) */
-    private static final String referenceText = "Greek.xml.gz";
+    /** The base Bible text to use as reference.*/
+    private static final String referenceText = "Greek.xml";
 
     /** A list of verses per book and chapter for the Old Testament */
     private static List<String> referenceVersesOT;
@@ -80,7 +79,7 @@ public class MissingVerses {
         Document doc;
         File baseFile = new File(baseDir + "/" + file);
         try {
-            doc = builder.build(new GZIPInputStream(new FileInputStream(baseFile)));
+            doc = builder.build(new FileInputStream(baseFile));
             Element root = doc.getRootElement().getChild("text").getChild("body");
             books = root.getChildren();
             for (Element book:books){
@@ -107,7 +106,7 @@ public class MissingVerses {
         Document doc;
         File baseFile = new File(bibleFile);
         try {
-            doc = builder.build(new GZIPInputStream(new FileInputStream(baseFile)));
+            doc = builder.build(new FileInputStream(baseFile));
             Element root = doc.getRootElement().getChild("text").getChild("body");
             books = root.getChildren();
             for (Element book:books){
