@@ -229,7 +229,7 @@ public class XMLWriter {
 		//Write the final file (gzipped)
 		document.addElement(cesDoc);
 		try {
-			OutputStream fos =  new FileOutputStream(langName+".xml.gz");
+			OutputStream fos =  new FileOutputStream(langName+".xml");
 			document.output(fos);
             fos.close();
 		} 

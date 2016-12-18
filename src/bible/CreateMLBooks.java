@@ -139,7 +139,7 @@ public class CreateMLBooks {
             System.exit(-1);
         }
         dir = new File(args[0]);
-		langDocs = new HashMap<String, Document>();
+		langDocs = new HashMap<>();
 		File[] files = dir.listFiles(new FileFilter() {
 			@Override
 			public boolean accept(File pathname) {

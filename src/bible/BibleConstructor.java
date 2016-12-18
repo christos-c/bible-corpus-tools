@@ -1,21 +1,22 @@
 package bible;
 
 import bible.readers.BibleGatewayHTMLReader;
+import bible.readers.BibleOrgHTMLReader;
 import bible.readers.GoHTMLReader;
 import bible.readers.Reader;
 
 public class BibleConstructor {
     /** The (canonical) name of the language */
-    private String lang = "Serbian";
+    private String lang = "Amharic";
 
     /** The 3-letter ISO 639-3 code for the language */
-    private String langCodeISO = "srp";
+    private String langCodeISO = "amh";
 
     /** The name of the Bible source */
-    private String distributorName = "GospelGo";
+    private String distributorName = "BibleOrg";
 
     /** The URL of the Bible source */
-    private String distributorURL = "http://gospelgo.com";
+    private String distributorURL = "http://bible.org";
 
     /**
      * The raw HTML/TXT reader interface. Needs to be instantiated by a class for a specific distributorName.
@@ -32,7 +33,7 @@ public class BibleConstructor {
 
 
     public BibleConstructor() {
-        reader = new GoHTMLReader("");
+        reader = new BibleOrgHTMLReader("amharic");
         // Other constructors:
         //reader = new BibleGatewayHTMLReader();
         //reader = new WordProjectHTMLReader("sr");

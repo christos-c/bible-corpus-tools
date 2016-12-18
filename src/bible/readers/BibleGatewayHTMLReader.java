@@ -45,7 +45,7 @@ public class BibleGatewayHTMLReader implements Reader{
             fetchHTML(lang);
 
             BufferedReader in = f.createIn(tempBibleFile);
-			List<String> seenBooks = new ArrayList<String>();
+			List<String> seenBooks = new ArrayList<>();
 			int bookNum = -1;
 			while((line=in.readLine())!=null){
 				String[] ids = line.split("\t")[0].split("-");

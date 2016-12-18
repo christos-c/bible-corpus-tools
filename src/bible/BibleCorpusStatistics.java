@@ -33,8 +33,8 @@ public class BibleCorpusStatistics {
         int[] verseLenghts;
         BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
         String line;
-        List<String> wordList = new ArrayList<String>();
-        List<Integer> verseLenList = new ArrayList<Integer>();
+        List<String> wordList = new ArrayList<>();
+        List<Integer> verseLenList = new ArrayList<>();
         while ((line = in.readLine()) != null) {
             // XXX Naive tokenisation
             String[] split = line.split("\\.|,|:|;|\\?|\\s|\u3002|\u3001");
@@ -52,7 +52,7 @@ public class BibleCorpusStatistics {
         for (int i = 0; i < verseLenghts.length; i++) {
             verseLenghts[i] = verseLenList.get(i);
         }
-        return new Pair<String[], int[]>(wordsArray, verseLenghts);
+        return new Pair<>(wordsArray, verseLenghts);
     }
 
     /**
@@ -61,7 +61,7 @@ public class BibleCorpusStatistics {
     public double typeTokenRatio() {
         double cumulativeRatio = 0;
         int passes = 0;
-        List<String> seenWords = new ArrayList<String>();
+        List<String> seenWords = new ArrayList<>();
         for (int wordInd = 0; wordInd < wordsArray.length; wordInd++) {
             String word = wordsArray[wordInd];
             // Reset every n words
@@ -119,7 +119,7 @@ public class BibleCorpusStatistics {
 
     private Map<String, Integer> rawFreqMap(String[] array) {
         // Collect raw frequencies
-        Map<String, Integer> wordFreq = new HashMap<String, Integer>();
+        Map<String, Integer> wordFreq = new HashMap<>();
         for (String word : array) {
             if (wordFreq.containsKey(word)) wordFreq.put(word, wordFreq.get(word)+1);
             else wordFreq.put(word, 1);
@@ -139,7 +139,7 @@ public class BibleCorpusStatistics {
         String[] otherWordsArray = readCorpus(otherCorpus).getFirst();
         Map<String, Integer> otherWordFreq = rawFreqMap(otherWordsArray);
 
-        List<String> seenWords = new ArrayList<String>();
+        List<String> seenWords = new ArrayList<>();
         for (String word : wordsArray) {
             if (!seenWords.contains(word)) seenWords.add(word);
         }

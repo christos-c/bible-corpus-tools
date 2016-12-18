@@ -29,8 +29,8 @@ public class MissingVerses {
     public MissingVerses(String baseDir) {
         this.baseDir = baseDir;
         // Read the reference text
-        referenceVersesOT = new ArrayList<String>();
-        referenceVersesNT = new ArrayList<String>();
+        referenceVersesOT = new ArrayList<>();
+        referenceVersesNT = new ArrayList<>();
         readCorpus(baseDir + "/" + referenceText, referenceVersesOT, referenceVersesNT);
     }
 
@@ -41,8 +41,8 @@ public class MissingVerses {
      */
     public void missingVerses(String file) {
         int missing = 0;
-        List<String> versesOT = new ArrayList<String>();
-        List<String> versesNT = new ArrayList<String>();
+        List<String> versesOT = new ArrayList<>();
+        List<String> versesNT = new ArrayList<>();
         readCorpus(baseDir + "/" + file, versesOT, versesNT);
         // If the file contains OT verses
         if (!versesOT.isEmpty()) {

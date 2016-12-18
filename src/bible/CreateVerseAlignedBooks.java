@@ -74,7 +74,7 @@ public class CreateVerseAlignedBooks {
 	
 	@SuppressWarnings("unchecked")
 	private void writeChapter(Element chapter) throws IOException {
-		Map<String, List<String>> langMap = new HashMap<String, List<String>>();
+		Map<String, List<String>> langMap = new HashMap<>();
 		List<Element> verses = chapter.getChildren();
 		int verseNum = 0;
 		for (Element v:verses){
@@ -82,7 +82,7 @@ public class CreateVerseAlignedBooks {
 			for (Element l:langs){
 				String langName = l.getAttributeValue("id");
 				List<String> tempList;
-				if (!langMap.containsKey(langName)) tempList = new ArrayList<String>();
+				if (!langMap.containsKey(langName)) tempList = new ArrayList<>();
 				else tempList = langMap.get(langName);
 				//Trim because JDOM is stupid and can't handle white-spaces
 				tempList.add(l.getText().trim());
@@ -91,7 +91,7 @@ public class CreateVerseAlignedBooks {
 			verseNum++;
 		}
 		
-		List<Integer> toDel = new ArrayList<Integer>();
+		List<Integer> toDel = new ArrayList<>();
 		for (String lang:langMap.keySet()){
 			for (int verse=0; verse<verseNum; verse++){
 				if (langMap.get(lang).get(verse).isEmpty()) {
@@ -113,7 +113,7 @@ public class CreateVerseAlignedBooks {
 				List<String> tempList = langMap.get(lang);
 				langMap.put(lang, removeVerse(tempList, toDel.get(verse)));
 			}
-			ArrayList<Integer> toDelTemp = new ArrayList<Integer>(toDel);
+			ArrayList<Integer> toDelTemp = new ArrayList<>(toDel);
 			
 			//Re-adjust the indices
 			for (int i=verse+1; i<toDel.size(); i++) {
@@ -121,7 +121,7 @@ public class CreateVerseAlignedBooks {
 				toDelTemp.remove(i);
 				toDelTemp.add(i, newInd);
 			}
-			toDel = new ArrayList<Integer>(toDelTemp);
+			toDel = new ArrayList<>(toDelTemp);
 		}
 		
 		for (String lang:langMap.keySet()){

@@ -76,7 +76,7 @@ public class WordProjectHTMLReader implements Reader {
             e.printStackTrace();
             System.exit(-1);
         }
-        List<String> cleanLines = new ArrayList<String>();
+        List<String> cleanLines = new ArrayList<>();
         // Perform a cleanup
         for (String line : lines) {
             if (!line.contains("class=\"verse\"")) continue;
