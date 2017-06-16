@@ -3,6 +3,7 @@ package bible.readers;
 import bible.BibleVariables;
 import bible.XMLWriter;
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.net.URL;
@@ -58,7 +59,7 @@ public class BibleOrgHTMLReader implements Reader {
                     List<String> lineTokens = Arrays.asList(lineDecoded.split("\\s+"));
                     String idText = lineTokens.get(0);
                     String verseId = idText.split("[^\\d]")[0];
-                    String verseText = String.join(" ", lineTokens.subList(1, lineTokens.size()));
+                    String verseText = StringUtils.join(lineTokens.subList(1, lineTokens.size()), ' ');
                     wordCount += lineTokens.size() - 1;
                     String bookID = "b."+ BibleVariables.bookCodesFull[bookNo];
                     String chaptID = bookID+"."+chapterNoStr;
